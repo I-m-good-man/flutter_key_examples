@@ -6,7 +6,7 @@ import 'app_route_config.dart';
 class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
   @override
   Future<AppRouteConfig> parseRouteInformation(
-      RouteInformation routeInformation) {
+      RouteInformation routeInformation) async{
     Uri uri = routeInformation.uri;
 
     List<AppPath> pageConfig = [
@@ -15,7 +15,7 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
     ];
 
     AppRouteConfig appRouteConfig = AppRouteConfig(pageConfig: pageConfig);
-    return Future(() => appRouteConfig);
+    return appRouteConfig;
   }
 
   AppPath _mapPathSegmentToAppPath({required String pathSegment}) {
