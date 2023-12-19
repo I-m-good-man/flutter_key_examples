@@ -25,11 +25,11 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfig>
   }
 
   @override
-  Future<bool> popRoute() {
+  Future<bool> popRoute() async {
     if (ref.read(_navigationProvider).pageConfig.length > 1) {
       ref.read(_navigationProvider.notifier).popPath();
     }
-    return Future(() => true);
+    return true;
   }
 
   @override
@@ -65,15 +65,13 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfig>
   }
 
   @override
-  Future<void> setNewRoutePath(AppRouteConfig configuration) {
+  Future<void> setNewRoutePath(AppRouteConfig configuration) async {
     ref.read(_navigationProvider.notifier).setNewState(newState: configuration);
-    return Future(() => null);
   }
 
   @override
-  Future<void> setInitialRoutePath(AppRouteConfig configuration) {
+  Future<void> setInitialRoutePath(AppRouteConfig configuration) async {
     // Ignore first RouteInformation from platform, cause the app has an own
     // initial route configuration.
-    return Future(() => null);
   }
 }
