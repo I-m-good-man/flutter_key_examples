@@ -6,7 +6,7 @@ import 'app_route_config.dart';
 class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
   @override
   Future<AppRouteConfig> parseRouteInformation(
-      RouteInformation routeInformation) async{
+      RouteInformation routeInformation) async {
     Uri uri = routeInformation.uri;
 
     List<AppPath> pageConfig = [
@@ -22,6 +22,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
     return switch (pathSegment) {
       'launch-path' => LaunchPath(),
       'home-path' => HomePath(),
+      'key-example-one-layer-replacement' =>
+        KeyExampleOneLayerReplacementPath(),
       'undefined-path' => UndefinedPath(),
       _ => UndefinedPath()
     };
@@ -43,6 +45,7 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
     return switch (appPath.runtimeType) {
       LaunchPath => 'launch-path',
       HomePath => 'home-path',
+      KeyExampleOneLayerReplacementPath => 'key-example-one-layer-replacement',
       UndefinedPath => 'undefined-path',
       _ => 'undefined-path'
     };

@@ -1,8 +1,9 @@
-import 'package:app_navigation_template/pages/HomePage.dart';
-import 'package:app_navigation_template/pages/LaunchPage.dart';
-import 'package:app_navigation_template/pages/UndefinedPage.dart';
+import 'package:app_navigation_template/pages/home_page.dart';
+import 'package:app_navigation_template/pages/launch_page.dart';
+import 'package:app_navigation_template/pages/undefined_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../pages/key_example_one_layer_replacement.dart';
 import 'app_path.dart';
 import 'app_route_config.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,7 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfig>
     return switch (appPath.runtimeType) {
       LaunchPath => LaunchPage(),
       HomePath => HomePage(),
+      KeyExampleOneLayerReplacementPath => KeyExampleOneLayerReplacementPage(),
       UndefinedPath => UndefinedPage(),
       _ => UndefinedPage()
     };
