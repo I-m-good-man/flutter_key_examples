@@ -9,3 +9,4 @@ class LaunchPath extends MainPath {}
 class HomePath extends LaunchPath {}
 
 class KeyExampleOneLayerReplacementPath extends HomePath{}
+class KeyExampleSubtreeReplacementPath extends HomePath{}

@@ -1,4 +1,5 @@
 import 'package:app_navigation_template/navigation/app_route_config.dart';
+import 'package:app_navigation_template/pages/key_example_subtree_replacement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +25,8 @@ class ScaffoldWrapper extends ConsumerWidget {
                 pageConfig.add(switch (pageConfig.last.runtimeType) {
                   LaunchPath => HomePath(),
                   HomePath => KeyExampleOneLayerReplacementPath(),
+                  KeyExampleOneLayerReplacementPath =>
+                    KeyExampleSubtreeReplacementPath(),
                   _ => throw Exception('undefined path')
                 });
                 AppRouteConfig newState =
