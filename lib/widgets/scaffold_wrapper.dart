@@ -21,11 +21,13 @@ class ScaffoldWrapper extends ConsumerWidget {
               onPressed: () {
                 AppRouteConfig state = ref.read(_navigationProvider);
                 List<AppPath> pageConfig = state.pageConfig;
-                AppRouteConfig newState = state.copyWith(
-                    pageConfig: pageConfig
-                      ..add((pageConfig.last.runtimeType == LaunchPath)
-                          ? HomePath()
-                          : LaunchPath()));
+                pageConfig.add(switch (pageConfig.last.runtimeType) {
+                  LaunchPath => HomePath(),
+                  HomePath => KeyExampleOneLayerReplacementPath(),
+                  _ => throw Exception('undefined path')
+                });
+                AppRouteConfig newState =
+                    state.copyWith(pageConfig: pageConfig);
 
                 ref
                     .read(_navigationProvider.notifier)
