@@ -30,7 +30,7 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfig>
   @override
   Future<bool> popRoute() async {
     if (ref.read(_navigationProvider).pageConfig.length > 1) {
-      ref.read(_navigationProvider.notifier).popPath();
+      ref.read(_navigationProvider.notifier).popRoute();
     }
     return true;
   }

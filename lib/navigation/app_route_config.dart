@@ -27,12 +27,26 @@ class AppRouteConfigStateNotifier extends StateNotifier<AppRouteConfig> {
     state = newState;
   }
 
-  void pushPath({required AppPath appPath}) {
+  void pushRoute({required AppPath appPath}) {
     state = state.copyWith(pageConfig: state.pageConfig..add(appPath));
   }
 
-  void popPath() {
+  void popRoute() {
     state = state.copyWith(pageConfig: state.pageConfig..removeLast());
+  }
+
+  void nextRoute() {
+    List<AppPath> pageConfig = state.pageConfig;
+    List<AppPath> newPageConfig = pageConfig
+      ..add(switch (pageConfig.last.runtimeType) {
+        LaunchPath => HomePath(),
+        HomePath => KeyExampleOneLayerReplacementPath(),
+        KeyExampleOneLayerReplacementPath => KeyExampleSubtreeReplacementPath(),
+        KeyExampleSubtreeReplacementPath => KeyExampleLocalKeysPath(),
+        KeyExampleLocalKeysPath => LaunchPath(),
+        _ => throw Exception('undefined path')
+      });
+    state = state.copyWith(pageConfig: newPageConfig);
   }
 }
 
