@@ -24,8 +24,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
       'home-path' => HomePath(),
       'key-example-one-layer-replacement' =>
         KeyExampleOneLayerReplacementPath(),
-      'key-example-subtree-replacement' =>
-          KeyExampleSubtreeReplacementPath(),
+      'key-example-subtree-replacement' => KeyExampleSubtreeReplacementPath(),
+      'key-example-local-keys' => KeyExampleLocalKeysPath(),
       'undefined-path' => UndefinedPath(),
       _ => UndefinedPath()
     };
@@ -49,6 +49,7 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouteConfig> {
       HomePath => 'home-path',
       KeyExampleOneLayerReplacementPath => 'key-example-one-layer-replacement',
       KeyExampleSubtreeReplacementPath => 'key-example-subtree-replacement',
+      KeyExampleLocalKeysPath => 'key-example-local-keys',
       UndefinedPath => 'undefined-path',
       _ => 'undefined-path'
     };

@@ -16,7 +16,10 @@ class ScaffoldWrapper extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ref.read(_navigationProvider).pageConfig.last.toString()),
+        title: Text(
+          ref.read(_navigationProvider).pageConfig.last.toString(),
+          style: TextStyle(fontSize: 12),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -27,6 +30,8 @@ class ScaffoldWrapper extends ConsumerWidget {
                   HomePath => KeyExampleOneLayerReplacementPath(),
                   KeyExampleOneLayerReplacementPath =>
                     KeyExampleSubtreeReplacementPath(),
+                  KeyExampleSubtreeReplacementPath => KeyExampleLocalKeysPath(),
+                  KeyExampleLocalKeysPath => LaunchPath(),
                   _ => throw Exception('undefined path')
                 });
                 AppRouteConfig newState =

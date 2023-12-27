@@ -1,4 +1,5 @@
 import 'package:app_navigation_template/pages/home_page.dart';
+import 'package:app_navigation_template/pages/key_example_local_keys.dart';
 import 'package:app_navigation_template/pages/launch_page.dart';
 import 'package:app_navigation_template/pages/undefined_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,6 +59,7 @@ class AppRouterDelegate extends RouterDelegate<AppRouteConfig>
       HomePath => HomePage(),
       KeyExampleOneLayerReplacementPath => KeyExampleOneLayerReplacementPage(),
       KeyExampleSubtreeReplacementPath => KeyExampleSubtreeReplacementPage(),
+      KeyExampleLocalKeysPath => KeyExampleLocalKeysPage(),
       UndefinedPath => UndefinedPage(),
       _ => UndefinedPage()
     };
