@@ -11,3 +11,4 @@ class HomePath extends LaunchPath {}
 class KeyExampleOneLayerReplacementPath extends HomePath{}
 class KeyExampleSubtreeReplacementPath extends KeyExampleOneLayerReplacementPath{}
 class KeyExampleLocalKeysPath extends KeyExampleSubtreeReplacementPath{}
+class KeyExamplePageStorageKeyPath extends KeyExampleSubtreeReplacementPath{}
