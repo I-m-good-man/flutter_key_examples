@@ -22,7 +22,7 @@ class KeyExamplePageStorageKeyPageState
     ColorBoxPage(
       key: PageStorageKey('home'),
     ),
-    ColorBoxPage(
+    TextFieldPage(
       key: PageStorageKey('messages'),
     )
   ];
@@ -81,5 +81,50 @@ class ColorBoxPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class TextFieldPage extends StatefulWidget {
+  @override
+  State<TextFieldPage> createState() => _TextFieldPageState();
+
+  const TextFieldPage({super.key});
+}
+
+class _TextFieldPageState extends State<TextFieldPage> {
+  TextEditingController _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = PageStorage.of(context).readState(context,
+            identifier: PageStorageKey('submitted value')) ??
+        PageStorage.of(context).readState(context,
+            identifier: PageStorageKey('last inserted value')) ??
+        '';
+
+    _controller.addListener(() {
+      PageStorage.of(context).writeState(context, _controller.text,
+          identifier: PageStorageKey('last inserted value'));
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+        onSubmitted: (String value) {
+          PageStorage.of(context).writeState(context, value,
+              identifier: PageStorageKey('submitted value'));
+        },
+        controller: _controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(),
+        ));
   }
 }
