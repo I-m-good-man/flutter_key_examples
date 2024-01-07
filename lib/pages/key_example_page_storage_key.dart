@@ -15,17 +15,15 @@ class KeyExamplePageStorageKeyPage extends ConsumerStatefulWidget {
 
 class KeyExamplePageStorageKeyPageState
     extends ConsumerState<KeyExamplePageStorageKeyPage> {
-  int currentIndex = 0;
-  PageStorageBucket bucket = PageStorageBucket();
+  late int _currentIndex;
+  late PageStorageBucket _bucket;
 
-  List<Widget> pages = [
-    ColorBoxPage(
-      key: PageStorageKey('home'),
-    ),
-    TextFieldPage(
-      key: PageStorageKey('messages'),
-    )
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = 0;
+    _bucket = PageStorageBucket();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,20 +43,30 @@ class KeyExamplePageStorageKeyPageState
         ],
       ),
       body: PageStorage(
-        bucket: bucket,
-        child: pages[currentIndex],
+        bucket: _bucket,
+        child: switch (_currentIndex) {
+          0 => ColorBoxPage(
+              key: PageStorageKey('Home page'),
+            ),
+          1 => ColorBoxPage(
+              key: PageStorageKey('Messages page'),
+            ),
+          2 => TextFieldPage(),
+          _ => throw Exception(
+              'Invalid value in parameter _currentIndex: $_currentIndex')
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (int newIndex) {
-          setState(() {
-            currentIndex = newIndex;
-          });
-        },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages')
+          BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
         ],
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
@@ -92,20 +100,22 @@ class TextFieldPage extends StatefulWidget {
 }
 
 class _TextFieldPageState extends State<TextFieldPage> {
-  TextEditingController _controller = TextEditingController();
+  late TextEditingController _controller;
+
+  PageStorageBucket get _pageStorageBucket => PageStorage.of(context);
+  late PageStorageKey _textFieldKey;
 
   @override
   void initState() {
     super.initState();
-    _controller.text = PageStorage.of(context).readState(context,
-            identifier: PageStorageKey('submitted value')) ??
-        PageStorage.of(context).readState(context,
-            identifier: PageStorageKey('last inserted value')) ??
-        '';
-
+    _controller = TextEditingController();
+    _textFieldKey = PageStorageKey('Text field key');
+    _controller.text =
+        _pageStorageBucket.readState(context, identifier: _textFieldKey) ??
+            'Initial text';
     _controller.addListener(() {
-      PageStorage.of(context).writeState(context, _controller.text,
-          identifier: PageStorageKey('last inserted value'));
+      _pageStorageBucket.writeState(context, _controller.text,
+          identifier: _textFieldKey);
     });
   }
 
@@ -117,14 +127,13 @@ class _TextFieldPageState extends State<TextFieldPage> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-        onSubmitted: (String value) {
-          PageStorage.of(context).writeState(context, value,
-              identifier: PageStorageKey('submitted value'));
-        },
-        controller: _controller,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-        ));
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: TextField(
+          controller: _controller,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+          )),
+    );
   }
 }
