@@ -37,8 +37,20 @@ class AppRouteConfigStateNotifier extends StateNotifier<AppRouteConfig> {
 
   void nextRoute() {
     List<AppPath> pageConfig = state.pageConfig;
-    List<AppPath> newPageConfig = pageConfig
-      ..add(switch (pageConfig.last.runtimeType) {
+    // List<AppPath> newPageConfig = pageConfig
+    //   ..add(switch (pageConfig.last.runtimeType) {
+    //     LaunchPath => HomePath(),
+    //     HomePath => KeyExampleOneLayerReplacementPath(),
+    //     KeyExampleOneLayerReplacementPath => KeyExampleSubtreeReplacementPath(),
+    //     KeyExampleSubtreeReplacementPath => KeyExampleLocalKeysPath(),
+    //     KeyExampleLocalKeysPath => KeyExamplePageStorageKeyPath(),
+    //     KeyExamplePageStorageKeyPath => KeyExampleGlobalKeyPath(),
+    //     KeyExampleGlobalKeyPath => LaunchPath(),
+    //     _ => throw Exception('undefined path')
+    //   });
+    List<AppPath> newPageConfig = [
+      HomePath(),
+      switch (pageConfig.last.runtimeType) {
         LaunchPath => HomePath(),
         HomePath => KeyExampleOneLayerReplacementPath(),
         KeyExampleOneLayerReplacementPath => KeyExampleSubtreeReplacementPath(),
@@ -47,7 +59,8 @@ class AppRouteConfigStateNotifier extends StateNotifier<AppRouteConfig> {
         KeyExamplePageStorageKeyPath => KeyExampleGlobalKeyPath(),
         KeyExampleGlobalKeyPath => LaunchPath(),
         _ => throw Exception('undefined path')
-      });
+      }
+    ];
     state = state.copyWith(pageConfig: newPageConfig);
   }
 }
@@ -57,5 +70,4 @@ typedef NavigationProvider
 
 final NavigationProvider navigationProvider =
     StateNotifierProvider<AppRouteConfigStateNotifier, AppRouteConfig>((ref) =>
-        AppRouteConfigStateNotifier(
-            AppRouteConfig(pageConfig: [KeyExampleGlobalKeyPath()])));
+        AppRouteConfigStateNotifier(AppRouteConfig(pageConfig: [HomePath()])));

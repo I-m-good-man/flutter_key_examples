@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:app_navigation_template/widgets/app_bar_widget.dart';
 import 'package:app_navigation_template/widgets/scaffold_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -34,20 +35,7 @@ class KeyExamplePageStorageKeyPageState
   Widget build(BuildContext context) {
     // _globalKey = GlobalObjectKey('ColorSquareBlock global key');
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          ref.read(widget._navigationProvider).pageConfig.last.toString(),
-          style: TextStyle(fontSize: 12),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                ref.read(widget._navigationProvider.notifier).nextRoute();
-              },
-              icon: const Icon(Icons.navigate_next))
-        ],
-      ),
+      appBar: AppBarWidget(),
       body: GestureDetector(
         onLongPress: () {
           print(_globalKey.currentState);
