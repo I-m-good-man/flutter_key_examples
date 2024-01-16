@@ -1,16 +1,12 @@
-# app_navigation_template
+# Keys Example
 
-A new Flutter project.
+A flutter project with an example of using all types of keys in flutter:<br>
+<br>Local keys:
+<li> ValueKey</li>
+<li>PageStorageKey (descendant of ValueKey)</li>
+<li>ObjectKey</li>
+<li>UniqueKey</li>
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br>Global keys:
+<li> LabeledGlobalKey</li>
+<li>GlobalObjectKey</li>
